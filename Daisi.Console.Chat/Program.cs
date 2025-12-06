@@ -48,25 +48,3 @@ host.Services.UseDaisi();
 
 await host.RunAsync();
 
-
-// You must know the Orc designated ID to use the SettingsClient
-string hostId = "host-XXXX";
-
-// Create the Factory
-var settingsClientFactory = new SettingsClientFactory();
-
-// Create the client
-var settingsClient = settingsClientFactory.Create(hostId);
-
-
-// Use settingClient to manage settings
-var getAllResponse = settingsClient.GetAll();
-var settings = getAllResponse.Settings;
-
-// Get/Set settings as needed
-
-var setAllRequest = new SetAllSettingsRequest()
-{
-    Settings = settings
-};
-var setAllResponse = settingsClient.SetAll(setAllRequest);
