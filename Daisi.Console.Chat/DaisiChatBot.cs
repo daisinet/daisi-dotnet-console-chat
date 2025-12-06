@@ -34,7 +34,10 @@ namespace Daisi.Console.Chat
 
             // Give the user some general instructions
             System.Console.WriteLine($"Welcome to DaisiBot! Ask a question or type \"exit\" to stop.\n\n");
+
+            System.Console.ForegroundColor = ConsoleColor.Yellow;
             System.Console.Write("User: ");
+            System.Console.ForegroundColor = ConsoleColor.White;
 
             // Keep the chat going until the user wants to stop or the application stops
             while (!stoppingToken.IsCancellationRequested) 
@@ -50,7 +53,9 @@ namespace Daisi.Console.Chat
                     // letting the Orc (Orchestrator) and the client figure everything out.
                     var response = inferenceClient.Send(inputFromUser);
 
+                    System.Console.ForegroundColor = ConsoleColor.Green;
                     System.Console.Write($"\nAssistant: ");
+                    System.Console.ForegroundColor = ConsoleColor.White;
 
                     // Cycle through each part of the response until there are no 
                     // more parts in the response and write each part to the console.
@@ -60,7 +65,10 @@ namespace Daisi.Console.Chat
                     }
                     System.Console.WriteLine();
                     // Ask the user for more input
+                    System.Console.ForegroundColor = ConsoleColor.Yellow;
                     System.Console.Write($"\nUser: ");
+                    System.Console.ForegroundColor = ConsoleColor.White;
+
                 }
                 else
                     break;

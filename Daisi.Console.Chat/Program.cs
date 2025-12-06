@@ -2,8 +2,11 @@
 using Daisi.Console.Chat;
 using Daisi.Protos.V1;
 using Daisi.SDK.Clients.V1.Host;
+using Daisi.SDK.Clients.V1.Orc;
 using Daisi.SDK.Extensions;
+using Daisi.SDK.Interfaces;
 using Daisi.SDK.Models;
+using Grpc.Core;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -44,3 +47,26 @@ var host = builder.Build();
 host.Services.UseDaisi();
 
 await host.RunAsync();
+
+
+// You must know the Orc designated ID to use the SettingsClient
+string hostId = "host-XXXX";
+
+// Create the Factory
+var settingsClientFactory = new SettingsClientFactory();
+
+// Create the client
+var settingsClient = settingsClientFactory.Create(hostId);
+
+
+// Use settingClient to manage settings
+var getAllResponse = settingsClient.GetAll();
+var settings = getAllResponse.Settings;
+
+// Get/Set settings as needed
+
+var setAllRequest = new SetAllSettingsRequest()
+{
+    Settings = settings
+};
+var setAllResponse = settingsClient.SetAll(setAllRequest);
